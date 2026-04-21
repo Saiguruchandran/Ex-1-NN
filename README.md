@@ -1,7 +1,7 @@
-<H3>ENTER YOUR NAME</H3>
-<H3>ENTER YOUR REGISTER NO.</H3>
+<H3>ENTER YOUR NAME: SAI GURUCHANDRAN G</H3>
+<H3>ENTER YOUR REGISTER NO: 212223240143</H3>
 <H3>EX. NO.1</H3>
-<H3>DATE</H3>
+<H3>DATE 21.04.2026</H3>
 <H1 ALIGN =CENTER> Introduction to Kaggle and Data preprocessing</H1>
 
 ## AIM:
@@ -37,11 +37,76 @@ STEP 5:Normalizing the data<BR>
 STEP 6:Splitting the data into test and train<BR>
 
 ##  PROGRAM:
-TYPE YOUR CODE HERE
+```
+# import libraries
+from google.colab import files
+import pandas as pd
+import io
+
+from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.model_selection import train_test_split
+# Read the dataset
+df = pd.read_csv('Churn_Modelling.csv')
+print(df.head())
+
+# Finding Missing Values
+print(df.isnull().sum())
+
+# Handling Missing Values
+df.fillna(df.mean(numeric_only=True), inplace=True)
+
+# Handle categorical columns
+df = pd.get_dummies(df, drop_first=True)
+
+# Split dataset into input and output
+X = df.drop('Exited', axis=1)
+y = df['Exited']
+
+print(X.head())
+print(y.head())
+#  Check for Duplicates
+print(df.duplicated().sum())
+
+#  Remove Duplicates (optional)
+df.drop_duplicates(inplace=True)
+#  Detect Outliers (use existing numeric columns)
+print(df.describe())
+print(df['Balance'].describe())
+scaler = MinMaxScaler()
+df1 = pd.DataFrame(scaler.fit_transform(df))
+print(df1.head())
+#  Splitting the data for training & testing
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+# 'test_size=0.2' means 20% test data and 80% training data
+
+#  Print results
+print("X_train:\n", X_train.head())
+print("Length of X_train:", len(X_train))
+
+print("\nX_test:\n", X_test.head())
+print("Length of X_test:", len(X_test))
+```
 
 
 ## OUTPUT:
-SHOW YOUR OUTPUT HERE
+<img width="970" height="688" alt="image" src="https://github.com/user-attachments/assets/4c463d00-7006-477f-9252-90935b9670a2" />
+<img width="993" height="751" alt="image" src="https://github.com/user-attachments/assets/1c7ab21d-81a7-4f9b-a274-51672e26aeba" />
+<img width="979" height="576" alt="image" src="https://github.com/user-attachments/assets/c6a88be9-fef1-42df-929b-7dd75e1878ef" />
+<img width="451" height="185" alt="image" src="https://github.com/user-attachments/assets/cdf6dee0-d378-4e68-aba7-ca57673576a3" />
+<img width="832" height="302" alt="image" src="https://github.com/user-attachments/assets/05655296-f8a3-4b8d-9645-a3657dcb3368" />
+<img width="963" height="692" alt="image" src="https://github.com/user-attachments/assets/36d214ac-278e-41a4-922d-0380fe1f387e" />
+<img width="782" height="750" alt="image" src="https://github.com/user-attachments/assets/17ed068a-ff9c-4df4-87c8-3a6c63004946" />
+
+
+
+
+
 
 
 ## RESULT:
